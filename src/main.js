@@ -464,21 +464,18 @@ export default async ({ req, res }) => {
       const products = results[0];
       const outOfRange = results[1];
 
-      res.status(200).json({
+      res.json({
         success: true,
         products,
         outOfRange,
       });
     } catch (err) {
       console.error(err);
-      res.status(500).json({
+      res.json({
         success: false,
         message: 'Error retrieving products from the smart contract.',
         error: err.message,
       });
     }
-  } else {
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${method} Not Allowed`);
-  }
+  } 
 };
