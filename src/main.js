@@ -1,8 +1,8 @@
 import { Client, Users } from 'node-appwrite';
+import Web3 from 'web3';
 
 export default async ({ req, res, log, error }) => {
 
-const Web3 = require('web3');
 
 const alchemyUrl = process.env.ALCHEMY_URL;
 const web3 = new Web3(new Web3.providers.HttpProvider(alchemyUrl));
