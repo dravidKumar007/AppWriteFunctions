@@ -451,9 +451,9 @@ export default async ({ req, res, log, error }) => {
   const contractAddress = process.env.CONTRACT_ADDRESS;
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-  var {_name}=req.body;
+  var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
 
   return res.json({
-   message:ID.unique;
+   message:ID.unique();
   });
 };
