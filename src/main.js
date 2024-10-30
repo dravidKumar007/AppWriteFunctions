@@ -464,14 +464,14 @@ export default async ({ req, res }) => {
       const products = results[0];
       const outOfRange = results[1];
 
-      res.json({
+      return res.json({
         success: true,
         products,
         outOfRange,
       });
     } catch (err) {
       console.error(err);
-      res.json({
+     return res.json({
         success: false,
         message: 'Error retrieving products from the smart contract.',
         error: err.message,
@@ -479,5 +479,5 @@ export default async ({ req, res }) => {
     }
   } 
 
-  res.json({message: 'Success'});
+  return res.json({message: 'Success'});
 };
