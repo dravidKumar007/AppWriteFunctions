@@ -477,7 +477,9 @@ export default async ({ req, res }) => {
         error: err.message,
       });
     }
-  } 
+  } else {
+    res.json({success: false});
+  }
 
-  return res.json({message: 'Success'});
+  return res
 };
