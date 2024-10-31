@@ -452,7 +452,7 @@ export default async ({ req, res }) => {
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
   const { method } = req;
-  const body = JSON.parse(req.body || '{}'); 
+  const body = req.body || '{}'; 
 
   if (method === "GET") {
     try {
