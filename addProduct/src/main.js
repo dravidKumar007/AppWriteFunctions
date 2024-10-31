@@ -473,6 +473,12 @@ export default async ({ req, res, log, error }) => {
 
   }catch(e){
     log(e)
+
+
+    log ("Sample1"+Object.keys(e).length === 0)
+
+
+    log("Sample2"+e.constructor === Object)
     
     if(Object.keys(e).length === 0 && e.constructor === Object){
 
