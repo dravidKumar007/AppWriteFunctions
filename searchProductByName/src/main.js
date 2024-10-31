@@ -459,11 +459,16 @@ export default async ({ req, res }) => {
       const name = body.name || "";
       const page = body.page || 0;
       const limit = body.limit || 10;
-
+  
       const results = await contract.methods.searchProductsByName(name, page, limit).call();
-      const products = results[0];
+      const products = results[0].map(product => ({
+        ...product,
+        count: product.count.toString(), // Convert BigInt to string
+        wholePrice: product.wholePrice.toString(), // Convert BigInt to string
+        decimalPrice: product.decimalPrice.toString(), // Convert BigInt to string
+      }));
       const outOfRange = results[1];
-
+  
       return res.json({
         success: true,
         products,
@@ -471,7 +476,7 @@ export default async ({ req, res }) => {
       });
     } catch (err) {
       console.error(err);
-     return res.json({
+      return res.json({
         success: false,
         message: 'Error retrieving products from the smart contract.',
         error: err.message,

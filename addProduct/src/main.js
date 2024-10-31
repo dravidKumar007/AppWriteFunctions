@@ -451,25 +451,35 @@ export default async ({ req, res, log, error }) => {
   const contractAddress = process.env.CONTRACT_ADDRESS;
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-  var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
- var productID=ID.unique().toString()
- 
-    const estimatedGas = await contract.methods
-            .addProduct(productID, name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl)
-            .estimateGas({ from: process.env.FROM_ADDRESS });
+  const { name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl } = req.body;
+  const productID = ID.unique().toString();
 
-            const tx = {
-              from: process.env.FROM_ADDRESS,
-              gas: estimatedGas, // Ensure you estimate gas first
-              maxPriorityFeePerGas: web3.utils.toWei('2', 'gwei'), // Example value for priority fee
-              maxFeePerGas: web3.utils.toWei('20', 'gwei'), // Example value for max fee
-              to: contractAddress,
-              data: contract.methods.addProduct(productID, name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl).encodeABI()
-          };
-          
+  // Convert to BigNumber
+  const bigCount = web3.utils.toBN(count);
+  const bigWholePrice = web3.utils.toBN(wholePrice);
+  const bigDecimalPrice = web3.utils.toBN(decimalPrice);
+
+  try {
+    const estimatedGas = await contract.methods
+      .addProduct(productID, name, bigCount, sellerId, description, bigWholePrice, bigDecimalPrice, category, imageUrl)
+      .estimateGas({ from: process.env.FROM_ADDRESS });
+
+    const tx = {
+      from: process.env.FROM_ADDRESS,
+      gas: estimatedGas,
+      maxPriorityFeePerGas: web3.utils.toWei('2', 'gwei'),
+      maxFeePerGas: web3.utils.toWei('20', 'gwei'),
+      to: contractAddress,
+      data: contract.methods.addProduct(productID, name, bigCount, sellerId, description, bigWholePrice, bigDecimalPrice, category, imageUrl).encodeABI()
+    };
+
     const signedTx = await web3.eth.accounts.signTransaction(tx, process.env.PRIVATE_KEY);
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-   return res.json({status:200,id:productID,data:receipt})
 
-  
+    return res.json({ status: 200, id: productID, data: receipt });
+
+  } catch (e) {
+    console.error("Transaction Error:", e); // Improved error logging
+    return res.json({ status: 500, error: e.message }); // Better error response
+  }
 }
