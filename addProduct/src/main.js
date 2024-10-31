@@ -456,7 +456,7 @@ export default async ({ req, res, log, error }) => {
   try{
     const tx = {
       from: process.env.FROM_ADDRESS, 
-      gas: '68000',                   
+      gas: '67000',                   
       gasPrice: '30000',
       to: contractAddress,
       data: contract.methods.addProduct(productID,name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl).encodeABI()
