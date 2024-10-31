@@ -475,7 +475,7 @@ export default async ({ req, res, log, error }) => {
     log(e)
 
 
-    log ("Sample1"+Object.keys(e).length === 0)
+    log ("Sample1"+Object.keys(e).length )
 
 
     log("Sample2"+e.constructor === Object)
