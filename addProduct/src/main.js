@@ -462,10 +462,10 @@ export default async ({ req, res, log, error }) => {
     };
     const signedTx = await web3.eth.accounts.signTransaction(tx, process.env.PRIVATE_KEY);
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-    res.json({status:200,id:productID,receipt})
+   return res.json({status:200,id:productID,receipt})
 
   }catch(e){
-    res.json({status:500,error:e})
+    return res.json({status:500,error:e})
   }
-  return res
+ 
 }
