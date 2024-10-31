@@ -447,7 +447,7 @@ export default async ({ req, res, log, error }) => {
       "stateMutability": "view",
       "type": "function"
     }
-  ];
+  ]
   const contractAddress = process.env.CONTRACT_ADDRESS;
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
