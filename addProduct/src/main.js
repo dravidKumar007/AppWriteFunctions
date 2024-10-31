@@ -461,7 +461,8 @@ export default async ({ req, res, log, error }) => {
             const tx = {
               from: process.env.FROM_ADDRESS,
               gas: estimatedGas, // Ensure you estimate gas first
-              gasPrice: web3.utils.toWei('20', 'gwei'), // Set a gas price (example value)
+              maxPriorityFeePerGas: web3.utils.toWei('2', 'gwei'), // Example value for priority fee
+              maxFeePerGas: web3.utils.toWei('20', 'gwei'), // Example value for max fee
               to: contractAddress,
               data: contract.methods.addProduct(productID, name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl).encodeABI()
           };
