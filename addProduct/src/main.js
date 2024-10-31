@@ -459,11 +459,20 @@ export default async ({ req, res, log, error }) => {
             .estimateGas({ from: process.env.FROM_ADDRESS });
 
     const tx = {
-      from: process.env.FROM_ADDRESS, 
-      gas:estimatedGas,                   
-      to: contractAddress,
-      data: contract.methods.addProduct(productID,name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl).encodeABI()
-    };
+      "name": "MissingGasError",
+      "code": 415,
+      "message": "Invalid value given \"gas: 0x56e16, gasPrice: undefined, maxPriorityFeePerGas: undefined, maxFeePerGas: undefined\". Error: \"gas\" is missing.",
+      "cause": {
+          "name": "MissingGasInnerError",
+          "code": 440,
+          "message": "Missing properties in transaction, either define \"gas\" and \"gasPrice\" for type 0 transactions or \"gas\", \"maxPriorityFeePerGas\" and \"maxFeePerGas\" for type 2 transactions"
+      },
+      "innerError": {
+          "name": "MissingGasInnerError",
+          "code": 440,
+          "message": "Missing properties in transaction, either define \"gas\" and \"gasPrice\" for type 0 transactions or \"gas\", \"maxPriorityFeePerGas\" and \"maxFeePerGas\" for type 2 transactions"
+      }
+  };
     const signedTx = await web3.eth.accounts.signTransaction(tx, process.env.PRIVATE_KEY);
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
    return res.json({status:200,id:productID,receipt})
