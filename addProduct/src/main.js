@@ -474,13 +474,13 @@ export default async ({ req, res, log, error }) => {
   }catch(e){
     log(e)
     
-    if(e){
+    if(Object.keys(e).length === 0 && e.constructor === Object){
 
-      return res.json({status:500,error:e})
-    }else{
       return res.json({status:200,
      data:  {id:productID,name:name,count:count,sellerId:sellerId,description:description,wholePrice:wholePrice,decimalPrice:decimalPrice,category:category,imageUrl:imageUrl}
       })
+    }else{
+      return res.json({status:500,error:e})
 
     }
 
