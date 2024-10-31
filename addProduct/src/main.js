@@ -452,7 +452,7 @@ export default async ({ req, res, log, error }) => {
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
   var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
- var productID=ID.unique()
+ var productID=ID.unique().toString()
   try{
     const tx = {
       from: process.env.FROM_ADDRESS, 
