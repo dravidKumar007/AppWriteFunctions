@@ -461,12 +461,22 @@ export default async ({ req, res }) => {
       const limit = body.limit || 10;
   
       const results = await contract.methods.searchProductsByName(name, page, limit).call();
-      const products = results[0].map(product => ({
-        ...product,
-        count: product.count.toString(), // Convert BigInt to string
-        wholePrice: product.wholePrice.toString(), // Convert BigInt to string
-        decimalPrice: product.decimalPrice.toString(), // Convert BigInt to string
-      }));
+      
+      const products = results[0].map(product => {
+        return {
+          name: product[0],                     // Product Name
+          productId: product[1],                 // Product ID
+          wholePrice: product[2].toString(),     // Whole Price (converted to string)
+          sellerId: product[3],                  // Seller ID
+          description: product[4],                // Description
+          decimalPrice: product[5].toString(),    // Decimal Price (converted to string)
+          count: product[6].toString(),           // Count (converted to string)
+          category: product[7],                   // Category
+          imageUrl: product[8],                   // Image URL
+          additionalInfo: product[9],             // Additional Info (array)
+        };
+      });
+      
       const outOfRange = results[1];
   
       return res.json({
