@@ -471,6 +471,7 @@ export default async ({ req, res, log, error }) => {
    return res.json({status:200,id:productID,receipt})
 
   }catch(e){
+    log(e)
     return res.json({status:500,error:e})
   }
  
