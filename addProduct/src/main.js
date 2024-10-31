@@ -473,7 +473,17 @@ export default async ({ req, res, log, error }) => {
 
   }catch(e){
     log(e)
-    return res.json({status:500,error:e})
+    
+    if(e){
+
+      return res.json({status:500,error:e})
+    }else{
+      return res.json({status:200,
+     data:  {id:productID,name:name,count:count,sellerId:sellerId,description:description,wholePrice:wholePrice,decimalPrice:decimalPrice,category:category,imageUrl:imageUrl}
+      })
+
+    }
+
   }
  
 }
