@@ -478,7 +478,6 @@ export default async ({ req, res }) => {
       });
     }
   } else {
-    res.json({success: false});
   }
 
   return res
