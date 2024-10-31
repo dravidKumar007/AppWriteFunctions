@@ -456,7 +456,9 @@ export default async ({ req, res, log, error }) => {
   try{
     const tx = {
       from: process.env.FROM_ADDRESS, 
-      gas: 20000000,
+      gas: '0x1312d00',                   
+      maxPriorityFeePerGas: '0x09184e72a',
+      maxFeePerGas: '0x09184e72a000',
       to: contractAddress,
       data: contract.methods.addProduct(productID,name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl).encodeABI()
     };
