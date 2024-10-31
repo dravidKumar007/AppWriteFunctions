@@ -471,8 +471,9 @@ export default async ({ req, res, log, error }) => {
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
     log("START\n"+ receipt.toString()+"\nEND" )
     log("START\n"+JSON.stringify(receipt, null, 2)+"\nEND" )
-   return res.json({status:200,id:productID,data:receipt})
-
+    return res.json({status:200,
+      data:  {id:productID,name:name,count:count,sellerId:sellerId,description:description,wholePrice:wholePrice,decimalPrice:decimalPrice,category:category,imageUrl:imageUrl}
+       })
   }catch(e){
     log(e)
 
@@ -482,15 +483,10 @@ export default async ({ req, res, log, error }) => {
 
     log("Sample2"+e.constructor === Object)
     
-    if(Object.keys(e).length === 0 && e.constructor === Object){
-
-      return res.json({status:200,
-     data:  {id:productID,name:name,count:count,sellerId:sellerId,description:description,wholePrice:wholePrice,decimalPrice:decimalPrice,category:category,imageUrl:imageUrl}
-      })
-    }else{
+    
       return res.json({status:500,error:e})
 
-    }
+    
 
   }
  
