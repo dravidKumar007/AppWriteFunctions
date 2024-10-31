@@ -454,12 +454,13 @@ export default async ({ req, res, log, error }) => {
   var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
  var productID=ID.unique().toString()
   try{
+    const estimatedGas = await contract.methods
+            .addProduct(productID, name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl)
+            .estimateGas({ from: process.env.FROM_ADDRESS });
+
     const tx = {
       from: process.env.FROM_ADDRESS, 
-      gas: '67000',                   
-      gasPrice: '67000',
-      maxFeePerGas:'67000',
-      maxPriorityFeePerGas: '67000',
+      gas:estimatedGas,                   
       to: contractAddress,
       data: contract.methods.addProduct(productID,name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl).encodeABI()
     };
