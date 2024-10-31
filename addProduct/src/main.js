@@ -456,7 +456,7 @@ export default async ({ req, res, log, error }) => {
   try{
     const tx = {
       from: process.env.FROM_ADDRESS, 
-      gas: '2000',                   
+      gas: '26156',                   
       maxPriorityFeePerGas: '0x09184e72a',
       maxFeePerGas: '0x09184e72a000',
       to: contractAddress,
