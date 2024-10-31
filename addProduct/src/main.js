@@ -458,6 +458,8 @@ export default async ({ req, res, log, error }) => {
       from: process.env.FROM_ADDRESS, 
       gas: '67000',                   
       gasPrice: '67000',
+      maxFeePerGas:'67000',
+      maxPriorityFeePerGas: '67000',
       to: contractAddress,
       data: contract.methods.addProduct(productID,name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl).encodeABI()
     };
