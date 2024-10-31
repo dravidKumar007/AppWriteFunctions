@@ -452,7 +452,7 @@ export default async ({ req, res, log, error }) => {
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
   var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
-  productID=ID.unique()
+ var productID=ID.unique()
   try{
     const tx = {
       from: process.env.FROM_ADDRESS, 
@@ -462,11 +462,10 @@ export default async ({ req, res, log, error }) => {
     };
     const signedTx = await web3.eth.accounts.signTransaction(tx, process.env.PRIVATE_KEY);
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-    res.json({status:200,id:productID,receipt});
+    res.json({status:200,id:productID,receipt})
 
   }catch(e){
     res.json({status:500,error:e})
-    log("ERROR IS :"+e)
   }
   return res
-};
+}
