@@ -453,7 +453,7 @@ export default async ({ req, res, log, error }) => {
 
   var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
  var productID=ID.unique().toString()
-  try{
+ 
     const estimatedGas = await contract.methods
             .addProduct(productID, name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl)
             .estimateGas({ from: process.env.FROM_ADDRESS });
@@ -471,9 +471,5 @@ export default async ({ req, res, log, error }) => {
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
    return res.json({status:200,id:productID,data:receipt})
 
-  }catch(e){
-    log(e)
-    return res.json({status:500,error:e})
-  }
- 
+  
 }
