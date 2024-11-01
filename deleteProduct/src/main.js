@@ -454,6 +454,8 @@ export default async ({ req, res, log, error }) => {
   var {productID}=req.body||{};
 
   log("My PRODUCTID is :"+productID+"\n")
+  log("My BODY  is :"+req.body+"\n")
+
  
   try{
     const estimatedGas = await contract.methods
