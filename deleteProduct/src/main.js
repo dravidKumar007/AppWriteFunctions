@@ -476,12 +476,9 @@ export default async ({ req, res, log, error }) => {
   }catch(e){
     log(e)
 
-
     log ("Sample1"+Object.keys(e).length )
 
-
     log("Sample2"+e.constructor === Object)
-    
     
       return res.json({status:500,error:e})
 
