@@ -455,7 +455,7 @@ export default async ({ req, res, log, error }) => {
  
   try{
     const estimatedGas = await contract.methods
-            .deleteProduct(productID)
+            .deleteProduct(productID.toString())
             .estimateGas({ from: process.env.FROM_ADDRESS });
 
             const tx = {
@@ -464,14 +464,14 @@ export default async ({ req, res, log, error }) => {
               maxPriorityFeePerGas: web3.utils.toWei('2', 'gwei'), // Example value for priority fee
               maxFeePerGas: web3.utils.toWei('20', 'gwei'), // Example value for max fee
               to: contractAddress,
-              data: contract.methods.deleteProduct(productID).encodeABI()
+              data: contract.methods.deleteProduct(productID.toString()).encodeABI()
           };
           
     const signedTx = await web3.eth.accounts.signTransaction(tx, process.env.PRIVATE_KEY);
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
     log("START\n"+ receipt.toString()+"\nEND" )
     return res.json({status:200,
-      data:  {id:productID}
+      data:  {id:productID.toString()}
        })
   }catch(e){
     log(e)
