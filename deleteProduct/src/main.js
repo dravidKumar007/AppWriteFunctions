@@ -454,13 +454,11 @@ export default async ({ req, res, log, error }) => {
   var {productID}=req.body||"";
  
   try{
-    const estimatedGas = await contract.methods
-            .deleteProduct(productID.toString())
-            .estimateGas({ from: process.env.FROM_ADDRESS });
+    
 
             const tx = {
               from: process.env.FROM_ADDRESS,
-              gas: estimatedGas, // Ensure you estimate gas first
+              gas: 30000, // Ensure you estimate gas first
               maxPriorityFeePerGas: web3.utils.toWei('2', 'gwei'), // Example value for priority fee
               maxFeePerGas: web3.utils.toWei('20', 'gwei'), // Example value for max fee
               to: contractAddress,
