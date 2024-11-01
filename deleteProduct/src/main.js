@@ -1,3 +1,5 @@
+import Web3 from 'web3';
+
 
 export default async ({ req, res, log, error }) => {
   const alchemyUrl = process.env.ALCHEMY_URL;
