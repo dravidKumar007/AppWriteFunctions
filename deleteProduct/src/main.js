@@ -451,7 +451,7 @@ export default async ({ req, res, log, error }) => {
   const contractAddress = process.env.CONTRACT_ADDRESS;
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-  var {productID}=req.body;
+  var {productID}=req.body||"";
  
   try{
     const estimatedGas = await contract.methods
