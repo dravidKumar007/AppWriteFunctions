@@ -455,7 +455,7 @@ export default async ({ req, res, log, error }) => {
  
   try{
     const estimatedGas = await contract.methods
-            .deleteProduct(productID,"","","")
+            .deleteProduct(productID)
             .estimateGas({ from: process.env.FROM_ADDRESS });
 
             const tx = {
