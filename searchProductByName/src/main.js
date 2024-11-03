@@ -464,16 +464,15 @@ export default async ({ req, res }) => {
       
       const products = results[0].map(product => {
         return {
-          name: product[0],                     // Product Name
-          productId: product[1],                 // Product ID
-          wholePrice: product[2].toString(),     // Whole Price (converted to string)
-          sellerId: product[3],                  // Seller ID
-          description: product[4],                // Description
-          decimalPrice: product[5].toString(),    // Decimal Price (converted to string)
-          count: product[6].toString(),           // Count (converted to string)
-          category: product[7],                   // Category
-          imageUrl: product[8],                   // Image URL
-          additionalInfo: product[9],             // Additional Info (array)
+        productId  : product[0],                     
+         name : product[1],                
+         count : product[2].toString(),
+          sellerId: product[3],                 
+          description: product[4],                
+         wholePrice : product[5].toString(),   
+         decimalPrice : product[6].toString(),           
+          category: product[7],                   
+          imageUrl: product[8]         
         };
       });
       
