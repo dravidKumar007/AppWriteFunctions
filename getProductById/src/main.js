@@ -470,10 +470,10 @@ try{
 
   return res.json({
     success: true,
-    products,
+    products
   });
 } catch (err) {
-  console.error(err);
+  log(err);
   return res.json({
     success: false,
     message: 'Error retrieving products from the smart contract.',
