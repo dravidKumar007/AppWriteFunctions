@@ -452,13 +452,24 @@ export default async ({ req, res, log, error }) => {
   const contract = new web3.eth.Contract(contractABI, contractAddress);
   const productID = req.body.productID ; 
 try{
-  const results = await contract.methods.getProductById(productID).call();
+  const product = await contract.methods.getProductById(productID).call();
       
+  const products = {
+    productId  : product[0],                     
+     name : product[1],                
+     count : product[2].toString(),
+      sellerId: product[3],                 
+      description: product[4],                
+     wholePrice : product[5].toString(),   
+     decimalPrice : product[6].toString(),           
+      category: product[7],                   
+      imageUrl: product[8]         
+    }
   
 
   return res.json({
     success: true,
-    results
+    products
   });
 } catch (err) {
   log(err);
