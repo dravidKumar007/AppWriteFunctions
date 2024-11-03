@@ -454,24 +454,11 @@ export default async ({ req, res, log, error }) => {
 try{
   const results = await contract.methods.getProductById(productID).call();
       
-  const products = results[0].map(product => {
-    return {
-    productId  : product[0],                     
-     name : product[1],                
-     count : product[2].toString(),
-      sellerId: product[3],                 
-      description: product[4],                
-     wholePrice : product[5].toString(),   
-     decimalPrice : product[6].toString(),           
-      category: product[7],                   
-      imageUrl: product[8]         
-    };
-  });
   
 
   return res.json({
     success: true,
-    products
+    results
   });
 } catch (err) {
   log(err);
