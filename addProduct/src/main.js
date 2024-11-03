@@ -453,6 +453,8 @@ export default async ({ req, res, log, error }) => {
 
   var {name,count,sellerId,description,wholePrice,decimalPrice,category,imageUrl}=req.body;
  var productID=ID.unique().toString()
+
+ log(req.body)
   try{
     const estimatedGas = await contract.methods
             .addProduct(productID, name, count, sellerId, description, wholePrice, decimalPrice, category, imageUrl)
@@ -484,8 +486,6 @@ export default async ({ req, res, log, error }) => {
     
     
       return res.json({status:500,error:e})
-
-    
 
   }
  
